@@ -1,0 +1,9 @@
+entrypoint = "app/main.py"
+run = "bash -lc 'export VEXORA_ENV=production; uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-3000}'"
+
+[deployment]
+run = ["bash", "-lc", "export VEXORA_ENV=production; uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-3000}"]
+
+[[ports]]
+localPort = 3000
+externalPort = 80

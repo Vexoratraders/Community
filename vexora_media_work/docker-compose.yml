@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${VEXORA_POSTGRES_USER:-vexora}
+      POSTGRES_PASSWORD: ${VEXORA_POSTGRES_PASSWORD:?Set a strong VEXORA_POSTGRES_PASSWORD in your private .env}
+      POSTGRES_DB: ${VEXORA_POSTGRES_DB:-vexora}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${VEXORA_POSTGRES_USER:-vexora} -d ${VEXORA_POSTGRES_DB:-vexora}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  vexora:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      VEXORA_SECRET_KEY: ${VEXORA_SECRET_KEY:?Set a unique VEXORA_SECRET_KEY in your private .env}
+      VEXORA_ENV: production
+      VEXORA_DATABASE_URL: postgresql+psycopg://${VEXORA_POSTGRES_USER:-vexora}:${VEXORA_POSTGRES_PASSWORD}@db:5432/${VEXORA_POSTGRES_DB:-vexora}
+      VEXORA_COOKIE_SECURE: ${VEXORA_COOKIE_SECURE:-true}
+      VEXORA_DEV_EMAIL_MODE: ${VEXORA_DEV_EMAIL_MODE:-false}
+      VEXORA_SMTP_HOST: ${VEXORA_SMTP_HOST:-}
+      VEXORA_SMTP_PORT: ${VEXORA_SMTP_PORT:-587}
+      VEXORA_SMTP_USER: ${VEXORA_SMTP_USER:-}
+      VEXORA_SMTP_PASSWORD: ${VEXORA_SMTP_PASSWORD:-}
+      VEXORA_EMAIL_FROM: ${VEXORA_EMAIL_FROM:-}
+      VEXORA_REDIS_URL: ${VEXORA_REDIS_URL:-}
+      VEXORA_PUBLIC_ORIGIN: ${VEXORA_PUBLIC_ORIGIN:-}
+      VEXORA_AI_API_KEY: ${VEXORA_AI_API_KEY:-}
+      VEXORA_AI_BASE_URL: ${VEXORA_AI_BASE_URL:-https://api.openai.com/v1}
+      VEXORA_AI_MODEL: ${VEXORA_AI_MODEL:-gpt-4o-mini}
+      VEXORA_TRADE_ADMINS: ${VEXORA_TRADE_ADMINS:-}
+    volumes:
+      - vexora_uploads:/app/app/static/uploads
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+volumes:
+  postgres_data:
+  vexora_uploads:

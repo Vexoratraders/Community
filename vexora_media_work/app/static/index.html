@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090a12">
+<meta name="description" content="𝗩𝗘𝗫𝗢𝗥𝗔 𝗧𝗥𝗔𝗗𝗘𝗥𝗦 is a trading workspace to share market ideas, analysis, media and messages.">
+<title>𝗩𝗘𝗫𝗢𝗥𝗔 𝗧𝗥𝗔𝗗𝗘𝗥𝗦 — Market ideas, trading tools and signals</title>
+<link rel="icon" type="image/jpeg" href="/static/vexora-traders-logo.jpg">
+<link rel="stylesheet" href="/static/style.css">
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" aria-label="𝗩𝗘𝗫𝗢𝗥𝗔 𝗧𝗥𝗔𝗗𝗘𝗥𝗦 home"><img class="logo" src="/static/vexora-traders-logo.jpg" alt="𝗩𝗘𝗫𝗢𝗥𝗔 𝗧𝗥𝗔𝗗𝗘𝗥𝗦 logo"><span>𝗩𝗘𝗫𝗢𝗥𝗔 𝗧𝗥𝗔𝗗𝗘𝗥𝗦</span></a>
+  <span class="tagline">A trading workspace built for traders</span>
+  <div id="accountArea"><button class="btn secondary" id="openAuth">Sign in</button></div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <button class="nav active" data-page="home">⌂ <span>Feed</span></button>
+    <button class="nav" data-page="discover">⌕ <span>Discover</span></button>
+    <button class="nav" data-page="communities">♧ <span>Community</span></button>
+    <button class="nav" data-page="trading">↗ <span>Signals</span></button>
+    <button class="nav" data-page="messages">✉ <span>Messages</span></button>
+    <button class="nav" data-page="lounge">◉ <span>Traders Lounge</span></button>
+    <button class="nav" data-page="support">✦ <span>AI Support</span></button>
+    <button class="nav" data-page="profile">♙ <span>Profile</span></button>
+    <button class="nav hidden" id="adminNav" data-page="admin">⚙ <span>Admin</span></button>
+    <div class="sidebar-note"><b>𝗩𝗘𝗫𝗢𝗥𝗔 𝗧𝗥𝗔𝗗𝗘𝗥𝗦</b><p>Share strategies, journal results, learn together and discuss the markets.</p><small>Markets move. Learn together.</small></div>
+  </aside>
+  <main id="main" class="main"><div class="loading">Loading 𝗩𝗘𝗫𝗢𝗥𝗔 𝗧𝗥𝗔𝗗𝗘𝗥𝗦…</div></main>
+  <aside class="rightbar">
+    <section class="panel"><h3>Discover traders</h3><p>Meet traders, compare ideas and follow market conversations.</p><button class="btn full" data-goto="discover">Find traders</button></section>
+    <section class="panel"><h3>VEXORA Admin support</h3><p>Ask the AI community assistant about site features, trading concepts and risk basics.</p><button class="btn secondary full" data-goto="support">Ask VEXORA Admin</button></section>
+    <section class="panel"><h3>Signals desk</h3><p>Official market setups from the app owner and authorized administrators.</p><p class="muted">Educational content only. Trading involves risk.</p><button class="btn secondary full" data-goto="trading">View signals</button></section>
+  </aside>
+</div>
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <div class="modal-card"><button class="close" id="closeModal" aria-label="Close">×</button><h2 id="modalTitle">Welcome to VEXORA</h2>
+ <div class="tabs"><button class="tab selected" data-auth="login">Sign in</button><button class="tab" data-auth="register">Create account</button></div>
+ <form id="authForm"><div id="authFields"></div><button class="btn full" type="submit" id="authSubmit">Sign in</button><p id="authMessage" class="message"></p></form>
+ </div>
+</div>
+<div id="toast" class="toast" aria-live="polite"></div>
+<footer class="site-footer" aria-label="Site credits">Powered by <strong>NeeTech</strong></footer>
+</body></html>
